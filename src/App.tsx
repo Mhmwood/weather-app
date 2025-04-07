@@ -15,10 +15,7 @@ const pages = [
     id: 1,
     content: <Detail />,
   },
-  {
-    id: 2,
-    content: <div>test</div>,
-  },
+ 
 ];
 
 const App = () => {
