@@ -27,4 +27,3 @@ dist-ssr
 node_modules/
 .env
 .env.local
-netlify/functions/
