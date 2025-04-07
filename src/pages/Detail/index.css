@@ -1,0 +1,10 @@
+.weahter-calendar::-webkit-scrollbar {
+  width: 6px;
+  border: 1px solid var(--color-secondary);
+  border-radius: 4px;
+}
+
+.weahter-calendar::-webkit-scrollbar-thumb {
+  background: var(--color-secondary);
+  border-radius: 4px;
+}

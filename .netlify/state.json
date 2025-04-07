@@ -1,0 +1,19 @@
+{
+	"geolocation": {
+		"data": {
+			"city": "Tripoli",
+			"country": {
+				"code": "LY",
+				"name": "Libya"
+			},
+			"subdivision": {
+				"code": "TB",
+				"name": "Tripoli"
+			},
+			"timezone": "Africa/Tripoli",
+			"latitude": 32.8908,
+			"longitude": 13.1796
+		},
+		"timestamp": 1744053115884
+	}
+}

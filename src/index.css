@@ -1,0 +1,19 @@
+@import "tailwindcss";
+@theme {
+  --color-primary: #49a4f2;
+  --color-secondary: #ffffff;
+  --color-tertiary: #444e72;
+  --color-quaternary: #838baa;
+  --drop-shadow-text-effect: -3px 4px 0px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  font-family: "Overpass", "sans-serif";
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-show::-webkit-scrollbar {
+  display: block;
+}
