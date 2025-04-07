@@ -4,7 +4,7 @@ import { AppDispatch } from "../store/store";
 import { fetchWeather } from "../store/weatherSlice";
 import { api } from "../../api/Index";
 import { GeocodingResult } from "../Types/geocoding";
-import debounce from "lodash/debounce";
+import { debounce } from "lodash";
 
 export const useLocationSearch = (
   setLocation: (lat: number, lon: number, name: string) => void,
