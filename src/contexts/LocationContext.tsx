@@ -2,7 +2,6 @@
 
 "use client";
 import { createContext, useContext, useState, useEffect } from "react";
-import { api } from "../../api/Index";
 
 interface LocationContextType {
   location: {
@@ -42,13 +41,6 @@ export const LocationProvider = ({
     return { lat: 0, lon: 0, name: "Loading..." };
   });
 
-  const [hasPromptedForLocation, setHasPromptedForLocation] = useState(() => {
-    if (typeof window !== "undefined") {
-      return localStorage.getItem("hasPromptedForLocation") === "true";
-    }
-    return false;
-  });
-
   const [recentSearches, setRecentSearches] = useState<
     Array<{ lat: number; lon: number; name: string }>
   >(() => {
@@ -60,68 +52,14 @@ export const LocationProvider = ({
   });
 
   useEffect(() => {
-    const getLocation = async () => {
-      if ("geolocation" in navigator) {
-        let shouldRequestLocation = false;
-
-        if (!hasPromptedForLocation) {
-          const userResponse = window.confirm(
-            "This website would like to access your location to provide better service. Do you allow?"
-          );
-          setHasPromptedForLocation(true);
-          localStorage.setItem("hasPromptedForLocation", "true");
-          shouldRequestLocation = userResponse;
-        } else {
-          // If we've prompted before, check if we have a saved location
-          const savedLocation = localStorage.getItem("lastLocation");
-          if (!savedLocation) {
-            shouldRequestLocation = true;
-          }
-        }
-
-        if (shouldRequestLocation) {
-          setIsLoading(true);
-          navigator.geolocation.getCurrentPosition(
-            async (position) => {
-              const { latitude, longitude } = position.coords;
-              try {
-                const response = await api.geocoding.search(
-                  `${latitude}+${longitude}`
-                );
-                if (response.results && response.results[0]) {
-                  const result = response.results[0];
-                  const city =
-                    result.components?.city ||
-                    result.components?.town ||
-                    result.components?.village ||
-                    "";
-                  const country = result.components?.country || "";
-                  const locationName = `${city}, ${country}`.trim();
-                  setLocation(latitude, longitude, locationName);
-                }
-              } catch (error) {
-                console.error("Error getting location name:", error);
-                setLocation(latitude, longitude, "Unknown Location");
-              } finally {
-                setIsLoading(false);
-              }
-            },
-            (error) => {
-              console.error("Error getting user location:", error);
-              setLocation(0, 0, "Location access denied");
-              setIsLoading(false);
-            }
-          );
-        } else {
-          setIsLoading(false);
-        }
-      } else {
-        setLocation(0, 0, "Geolocation not supported");
-        setIsLoading(false);
-      }
-    };
-
-    getLocation();
+    const savedLocation = localStorage.getItem("lastLocation");
+    if (savedLocation) {
+      const { lat, lon, name } = JSON.parse(savedLocation);
+      setLocation(lat, lon, name);
+    } else {
+      setLocation(0, 0, "Default Location");
+    }
+    setIsLoading(false);
   }, []); // Run only once when component mounts
 
   const setLocation = (lat: number, lon: number, name: string) => {

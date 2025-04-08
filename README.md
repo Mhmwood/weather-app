@@ -53,7 +53,7 @@ yarn install
 
 ```
 
-4. Create a `.env` file in the root directory and add your API key
+4. Create a `.env` or `.env.local` file in the root directory and add your API key
 
 ```bash
 OPENCAGE_API_KEY=your_api_key_here
